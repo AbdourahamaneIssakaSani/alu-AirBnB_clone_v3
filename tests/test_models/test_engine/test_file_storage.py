@@ -160,6 +160,7 @@ class TestFileStorageCount(unittest.TestCase):
         self.new_state1 = State(name="California")
         self.new_state2 = State(name="New York")
         self.new_state3 = State(name="Texas")
+        self.new_place = Place(name="Texas")
         self.new_state1.save()
         self.new_state2.save()
         self.new_state3.save()
@@ -170,8 +171,8 @@ class TestFileStorageCount(unittest.TestCase):
         self.storage.delete(self.new_state1)
         self.storage.delete(self.new_state2)
         self.storage.delete(self.new_state3)
+        self.storage.delete(self.new_place)
         self.storage.save()
-        self.storage.close()
 
     def test_count_all_objects(self):
         """Test count() with no arguments"""
@@ -187,3 +188,8 @@ class TestFileStorageCount(unittest.TestCase):
         """Test count() with a nonexistent class argument"""
         count = self.storage.count(Amenity)
         self.assertEqual(count, 0)
+
+    def test_count_existing_class(self):
+        """Test count() with existing class argument"""
+        count = self.storage.count(Place)
+        self.assertEqual(count, 1)
