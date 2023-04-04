@@ -13,9 +13,9 @@ from models.amenity import Amenity
 def get_amenity(amenity_id):
     """comment"""
     amenity = storage.get("Amenity", amenity_id)
-    if amenity is None:
+    if not amenity:
         abort(404)
-    return jsonify(amenity.to_dict())
+    return jsonify(amenity.to_dict()), 200
 
 
 @app_views.route('/amenities', methods=['GET'], strict_slashes=False)
@@ -32,7 +32,7 @@ def get_all_amenities():
 def delete_amenity(amenity_id):
     """comment"""
     amenity = storage.get("Amenity", amenity_id)
-    if amenity is None:
+    if not amenity:
         abort(404)
     amenity.delete()
     storage.save()
@@ -57,7 +57,7 @@ def post_amenity():
 def put_amenity(amenity_id):
     """comment"""
     amenity = storage.get("Amenity", amenity_id)
-    if amenity is None:
+    if not amenity:
         abort(404)
     data = request.get_json()
     if not data:
