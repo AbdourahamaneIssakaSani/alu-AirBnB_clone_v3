@@ -1,7 +1,9 @@
 #!/usr/bin/python3
 """first api with flask and python"""
 
-from flask import Flask, jsonify
+from flask import Flask, jsonify, make_response
+from werkzeug.exceptions import HTTPException
+
 # from flask_cors import CORS
 from models import storage
 from api.v1.views import app_views
@@ -20,15 +22,29 @@ app.register_blueprint(app_views)
 
 
 @app.errorhandler(404)
-def error(self):
+def error_not_found(self):
     """404 error but return empty dict"""
-    return jsonify({"error": "Not found"}), 404
+    return make_response(jsonify({"error": "Not found"}), 404)
 
 
 @app.teardown_appcontext
 def teardown(*args, **kwargs):
     """close storage"""
     storage.close()
+
+
+@app.errorhandler(Exception)
+def error_global(error):
+    """error_global"""
+    if isinstance(error, HTTPException):
+        if type(error).__name__ == 'NotFound':
+            error.description = "Not found"
+        message = {'error': error.description}
+        code = error.code
+    else:
+        message = {'error': error}
+        code = 500
+    return make_response(jsonify(message), code)
 
 
 if __name__ == "__main__":
