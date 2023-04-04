@@ -1,14 +1,14 @@
 #!/usr/bin/python3
 """Amenity comments"""
 from api.v1.views import app_views
-from flask import abort, jsonify, make_response, request
+from flask import abort, jsonify, request
 from models import storage
 from models.amenity import Amenity
 
 """Different example of routing: HTTP METHOD PER FUNC"""
 
 
-@app_views.route('/amenities/<string:amenity_id>', methods=['GET'],
+@app_views.route('/amenities/<amenity_id>', methods=['GET'],
                  strict_slashes=False)
 def get_amenity(amenity_id):
     """comment"""
@@ -27,7 +27,7 @@ def get_all_amenities():
     return jsonify(amenities)
 
 
-@app_views.route('/amenities/<string:amenity_id>', methods=['DELETE'],
+@app_views.route('/amenities/<amenity_id>', methods=['DELETE'],
                  strict_slashes=False)
 def delete_amenity(amenity_id):
     """comment"""
@@ -52,7 +52,7 @@ def post_amenity():
     return jsonify(amenity.to_dict()), 201
 
 
-@app_views.route('/amenities/<string:amenity_id>', methods=['PUT'],
+@app_views.route('/amenities/<amenity_id>', methods=['PUT'],
                  strict_slashes=False)
 def put_amenity(amenity_id):
     """comment"""
