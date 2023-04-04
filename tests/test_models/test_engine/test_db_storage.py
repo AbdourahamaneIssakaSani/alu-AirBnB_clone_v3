@@ -95,7 +95,7 @@ class TestFileStorage(unittest.TestCase):
 class TestDBStorageGet(unittest.TestCase):
     """Tests get method of the DBStorage class"""
 
-    def setUpClass(self):
+    def setUp(self):
         """Set up for the tests"""
 
         self.storage = DBStorage()
@@ -105,7 +105,7 @@ class TestDBStorageGet(unittest.TestCase):
         self.new_city = City(name="San Francisco", state_id=self.new_state.id)
         self.new_city.save()
 
-    def tearDownClass(self):
+    def tearDown(self):
         """Tear down after the tests"""
 
         self.storage.delete(self.new_city)
