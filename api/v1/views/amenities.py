@@ -31,7 +31,7 @@ def get_amenity(amenity_id):
                  strict_slashes=False)
 def delete_amenity(amenity_id):
     """comment"""
-    amenity = storage.get("Amenity", amenity_id)
+    amenity = storage.get(Amenity, amenity_id)
     if not amenity:
         abort(404)
     storage.delete(amenity)
@@ -56,7 +56,7 @@ def post_amenity():
                  strict_slashes=False)
 def put_amenity(amenity_id):
     """comment"""
-    amenity = storage.get("Amenity", amenity_id)
+    amenity = storage.get(Amenity, amenity_id)
     if not amenity:
         abort(404)
     data = request.get_json()
