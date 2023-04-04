@@ -35,7 +35,7 @@ def cities_by_id(city_id=None):
 
 
 @app_views.route('/states/<state_id>/cities', methods=['GET'])
-def cities_by_state(state_id=None):
+def get_cities_by_state(state_id=None):
     """Return cities by state"""
 
     state = storage.get(State, state_id)
@@ -49,7 +49,7 @@ def cities_by_state(state_id=None):
 
 
 @app_views.route('/states/<state_id>/cities', methods=['POST'])
-def cities_by_state(state_id=None):
+def create_cities_by_state(state_id=None):
     """Return cities by state"""
 
     state = storage.get(State, state_id)
