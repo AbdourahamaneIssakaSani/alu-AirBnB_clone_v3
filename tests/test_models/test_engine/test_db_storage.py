@@ -124,7 +124,7 @@ class TestDBStorageGet(unittest.TestCase):
         self.assertIsNone(obj)
 
 
-@unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') != 'db', "skip if  fs")
+@unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') != 'db', "skip if not db")
 class TestDBStorageCount(unittest.TestCase):
     """Tests the count() method of the DBStorage class"""
 

@@ -6,7 +6,7 @@ from models.state import State
 from flask import jsonify, request
 
 
-@app_views.route('/states', methods=['GET',], strict_slashes=False)
+@app_views.route('/states', methods=['GET', ], strict_slashes=False)
 def get_states():
     """return the list of states"""
     states = storage.all(State).values()  # get all states
@@ -33,7 +33,8 @@ def post_states():
     return jsonify(state.to_dict()), 201
 
 
-@app_views.route('/states/<state_id>', methods=['GET', 'DELETE', 'PUT'], strict_slashes=False)
+@app_views.route('/states/<state_id>', methods=['GET', 'DELETE', 'PUT'],
+                 strict_slashes=False)
 def states_id(state_id):
     """return the list of states"""
     state = storage.get(State, state_id)
