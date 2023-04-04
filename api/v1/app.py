@@ -2,13 +2,15 @@
 """first api with flask and python"""
 
 from flask import Flask, jsonify
-from flask_cors import CORS
+from flask_cors import CORS  # allow cross origin
 from models import storage
 from api.v1.views import app_views
 from os import getenv
+from flasgger import Swagger
 
 
 app = Flask('v1')
+Swagger(app)  # allow swagger
 
 app.register_blueprint(app_views)
 CORS(app, resources=r"/api/v1/*", origins="*")
@@ -28,6 +30,18 @@ def error(self):
 def teardown(*args, **kwargs):
     """close storage"""
     storage.close()
+
+#allow cross origin for all routes and methods
+
+
+@app.after_request  # after request
+def after_request(response):
+    """allow cross origin for all routes and methods"""
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+    response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE'
+    response.headers['Accept'] = '*/*'
+    return response
 
 
 if __name__ == "__main__":
