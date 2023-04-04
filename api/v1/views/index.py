@@ -2,8 +2,8 @@
 """create a new view for State objects
 that handles all default RestFul API actions"""
 
-from api.v1.views import app_views, storage
-# from models import storage
+from api.v1.views import app_views
+from models import storage
 from flask import jsonify
 
 

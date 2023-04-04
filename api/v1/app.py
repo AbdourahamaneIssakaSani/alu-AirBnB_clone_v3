@@ -3,7 +3,6 @@
 
 from flask import Flask, jsonify, make_response
 from werkzeug.exceptions import HTTPException
-
 # from flask_cors import CORS
 from models import storage
 from api.v1.views import app_views
@@ -11,11 +10,10 @@ from os import getenv
 
 app = Flask(__name__)
 
-app.register_blueprint(app_views)
-
-
 # CORS(app, resources=r"/api/v1/*", origins="*")
 app.url_map.strict_slashes = False  # allow /api/v1/states/ and /api/v1/states
+
+app.register_blueprint(app_views)
 
 
 # threaded = True if getenv('HBNB_API_HOST') else False
@@ -48,8 +46,9 @@ def error_global(error):
 
 
 if __name__ == "__main__":
+    """Flask Boring App"""
     host = getenv("HBNB_API_HOST", "0.0.0.0")
     port = getenv("HBNB_API_PORT", "5000")
 
     print(app.url_map)
-    app.run(host=host, port=port, debug=True)
+    app.run(host=host, port=port)
