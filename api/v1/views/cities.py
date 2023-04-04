@@ -25,14 +25,13 @@ def cities_by_state(state_id=None):
     if request.method == 'POST':
         data = request.get_json()
         if data is None:
-            abort(400, 'Not a JSON')
-        if data.get("name") is None:
-            abort(400, 'Missing name')
-
+            return jsonify({'error': "Not a JSON"}), 400
+        if 'name' not in data:
+            return jsonify({'error': 'Missing name'}), 400
         data['state_id'] = state_id
-        new_state = City(**data)
-        new_state.save()
-        return jsonify(new_state.to_dict()), 201
+        new_city = City(**data)
+        new_city.save()
+        return jsonify(new_city.to_dict()), 201
 
 
 @app_views.route('/cities/<city_id>', methods=['GET', 'DELETE', 'PUT'])
