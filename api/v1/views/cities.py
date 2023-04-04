@@ -12,7 +12,7 @@ from models.state import State
 def cities_by_state(state_id=None):
     """Return cities by state"""
 
-    state = storage.get("State", state_id)
+    state = storage.get(State, state_id)
     if state is None:
         abort(404)
 
