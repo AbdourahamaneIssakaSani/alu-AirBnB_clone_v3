@@ -24,9 +24,10 @@ def cities_by_state(state_id=None):
 
     if request.method == 'POST':
         data = request.get_json()
-        if data is None:
+        if not data:
             return jsonify({'error': "Not a JSON"}), 400
-        if 'name' not in data:
+        name = data.get('name', None)
+        if not name:
             return jsonify({'error': 'Missing name'}), 400
         data['state_id'] = state_id
         new_city = City(**data)
