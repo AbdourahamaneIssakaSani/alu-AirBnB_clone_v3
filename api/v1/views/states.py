@@ -41,7 +41,7 @@ def states_id(state_id):
     """return the list of states"""
     state = storage.get(State, state_id)
     if not state:
-        status = 200
+        status = 404
         return jsonify({'error': "Not found"}), status
     if request.method == 'GET':
         return jsonify(state.to_dict()), 200
