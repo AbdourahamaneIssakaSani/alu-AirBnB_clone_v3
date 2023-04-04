@@ -91,11 +91,11 @@ class TestFileStorage(unittest.TestCase):
         """Test that save properly saves objects to file.json"""
 
 
-@unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') != 'db', "skip if not db")
+@unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') != 'db', "skip if  fs")
 class TestDBStorageGet(unittest.TestCase):
     """Tests get method of the DBStorage class"""
 
-    def setUp(self):
+    def setUpClass(self):
         """Set up for the tests"""
 
         self.storage = DBStorage()
@@ -105,7 +105,7 @@ class TestDBStorageGet(unittest.TestCase):
         self.new_city = City(name="San Francisco", state_id=self.new_state.id)
         self.new_city.save()
 
-    def tearDown(self):
+    def tearDownClass(self):
         """Tear down after the tests"""
 
         self.storage.delete(self.new_city)
