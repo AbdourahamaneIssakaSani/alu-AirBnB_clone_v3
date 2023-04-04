@@ -32,15 +32,15 @@ def cities_by_state(state_id=None):
         data['state_id'] = state_id
         new_state = City(**data)
         new_state.save()
-        return jsonify(new_state.to_json()), 201
+        return jsonify(new_state.to_dict()), 201
 
 
 @app_views.route('/cities/<city_id>', methods=['GET', 'DELETE', 'PUT'])
 def cities_by_id(city_id=None):
     """City by id"""
-    city = storage.get('City', city_id)
+    city = storage.get(City, city_id)
     if city is None:
-        abort(404, 'Not found')
+        abort(404)
 
     if request.method == 'GET':
         return jsonify(city.to_json())
