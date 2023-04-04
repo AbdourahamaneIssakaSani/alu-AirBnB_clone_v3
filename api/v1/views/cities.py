@@ -39,7 +39,7 @@ def get_cities_by_state(state_id=None):
     """Return cities by state"""
 
     state = storage.get(State, state_id)
-    if state is None:
+    if not state:
         abort(404)
 
     all_cities = storage.all('City')
@@ -53,7 +53,7 @@ def create_cities_by_state(state_id=None):
     """Return cities by state"""
 
     state = storage.get(State, state_id)
-    if state is None:
+    if not state:
         abort(404)
 
     data = request.get_json()
