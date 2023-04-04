@@ -128,7 +128,7 @@ class TestDBStorageGet(unittest.TestCase):
 class TestDBStorageCount(unittest.TestCase):
     """Tests the count() method of the DBStorage class"""
 
-    def setUpClass(self):
+    def setUp(self):
         """Set up for the tests"""
 
         self.storage = DBStorage()
@@ -140,7 +140,7 @@ class TestDBStorageCount(unittest.TestCase):
         self.new_state2.save()
         self.new_state3.save()
 
-    def tearDownClass(self):
+    def tearDown(self):
         """Tear down after the tests"""
 
         self.storage.delete(self.new_state1)
