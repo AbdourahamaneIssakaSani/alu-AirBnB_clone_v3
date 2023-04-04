@@ -148,7 +148,7 @@ class TestFileStorageGet(unittest.TestCase):
         self.assertIsNone(obj)
 
 
-@unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') != 'fs', "skip if not fs")
+@unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') == 'db', "skip if not fs")
 class TestFileStorageCount(unittest.TestCase):
     """Tests the count() method of the FileStorage class"""
 
@@ -195,7 +195,7 @@ class TestFileStorageCount(unittest.TestCase):
         self.assertEqual(count, 1)
 
 
-@unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') != 'fs', "skip if not fs")
+@unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') == 'db', "skip if not fs")
 class TestFileStorageCountMore(unittest.TestCase):
     def setUp(self):
         self.state = State(name="California")

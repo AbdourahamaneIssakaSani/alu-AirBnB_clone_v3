@@ -91,7 +91,7 @@ class TestFileStorage(unittest.TestCase):
         """Test that save properly saves objects to file.json"""
 
 
-@unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') != 'db', "skip if  fs")
+@unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') != 'db', "skip if fs")
 class TestDBStorageGet(unittest.TestCase):
     """Tests get method of the DBStorage class"""
 
