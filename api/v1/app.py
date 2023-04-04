@@ -15,7 +15,7 @@ app.register_blueprint(app_views)
 
 
 # CORS(app, resources=r"/api/v1/*", origins="*")
-# app.url_map.strict_slashes = False  # allow /api/v1/states/ and /api/v1/states
+app.url_map.strict_slashes = False  # allow /api/v1/states/ and /api/v1/states
 
 
 # threaded = True if getenv('HBNB_API_HOST') else False
