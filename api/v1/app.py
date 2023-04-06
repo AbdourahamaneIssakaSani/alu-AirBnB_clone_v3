@@ -1,23 +1,23 @@
 #!/usr/bin/python3
-"""first api with flask and python"""
+"""First api with flask and python"""
 
-from flask import Flask, jsonify
-from flask_cors import CORS  # allow cross origin
+import os
 from models import storage
 from api.v1.views import app_views
-from os import getenv
+from flask import Flask, jsonify
+from flask_cors import CORS
 from flasgger import Swagger
 
 
-app = Flask('v1')
+app = Flask(__name__)
 Swagger(app)  # allow swagger
 
 app.register_blueprint(app_views)
 CORS(app, resources=r"/api/v1/*", origins="*")
 app.url_map.strict_slashes = False  # allow /api/v1/states/ and /api/v1/states
-host = getenv('HBNB_API_HOST')
-port = getenv('HBNB_API_PORT')
-threaded = True if getenv('HBNB_API_HOST') else False
+
+host = os.getenv("HBNB_API_HOST", "0.0.0.0")
+port = os.getenv("HBNB_API_PORT", 5000)
 
 
 @app.errorhandler(404)
@@ -45,9 +45,6 @@ def after_request(response):
 
 
 if __name__ == "__main__":
-    if host is None:
-        HBNB_API_HOST = '0.0.0.0'
-    if port is None:
-        HBNB_API_PORT = 5000
-    print(app.url_map)
-    app.run(host="0.0.0.0", port=5000, debug=True, threaded=threaded)
+    """Flask Boring App"""
+    # print(app.url_map)
+    app.run(host=host, port=port)

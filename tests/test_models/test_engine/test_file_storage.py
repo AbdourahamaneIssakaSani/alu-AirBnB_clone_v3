@@ -148,7 +148,7 @@ class TestFileStorageGet(unittest.TestCase):
         self.assertIsNone(obj)
 
 
-@unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') != 'fs', "skip if not fs")
+@unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') == 'db', "skip if not fs")
 class TestFileStorageCount(unittest.TestCase):
     """Tests the count() method of the FileStorage class"""
 
@@ -193,3 +193,24 @@ class TestFileStorageCount(unittest.TestCase):
         """Test count() with existing class argument"""
         count = self.storage.count(Place)
         self.assertEqual(count, 1)
+
+
+@unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') == 'db', "skip if not fs")
+class TestFileStorageCountMore(unittest.TestCase):
+    def setUp(self):
+        self.state = State(name="California")
+        self.state.save()
+
+    def tearDown(self):
+        models.storage.delete(self.state)
+        models.storage.save()
+
+    def test_count_all(self):
+        count_all = models.storage.count()
+        self.assertIsInstance(count_all, int)
+        self.assertGreaterEqual(count_all, 1)
+
+    def test_count_specific_class(self):
+        count_state = models.storage.count(State)
+        self.assertIsInstance(count_state, int)
+        self.assertEqual(count_state, 1)
