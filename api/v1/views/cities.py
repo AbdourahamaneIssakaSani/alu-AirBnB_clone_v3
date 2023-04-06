@@ -19,34 +19,33 @@ def get_cities(state_id):
     return jsonify(cities), 200
 
 
-@app_views.route('/states/<state_id>/cities', methods=['GET', 'POST'],
-                 strict_slashes=False)
+@app_views.route('/states/<state_id>/cities', methods=['POST'])
 def create_cities(state_id):
     """create new city"""
     state = storage.get(State, state_id)
     if not state:
         abort(404)
-    if request.method == 'POST':
-        city_data = request.get_json()
-        if not city_data:
-            return jsonify({'error': 'Not a JSON'}), 400
-        if 'name' not in city_data:
-            return jsonify({'error': 'Missing name'}), 400
-        city_data.pop('state_id', None)  # remove state_id if it exists
-        city_data.pop('id', None)  # remove id if it exists
-        city_data.pop('created_at', None)  # remove created_at if it exists
-        city_data.pop('updated_at', None)  # remove updated_at if it exists
-        for city in state.cities:
-            if city:  # if city exists
-                if city.name == city_data['name']:
-                    setattr(city, 'name', city_data['name'])
-                    city.save()
-                    return jsonify(city.to_dict()), 200
-        city_data['state_id'] = state_id
-        city = City(**city_data)  # create new city
-        city = storage.new(city)  # add to storage
-        storage.save()
-        return jsonify(city.to_dict()), 201
+        # if request.method == 'POST':
+    city_data = request.get_json()
+    if not city_data:
+        return jsonify({'error': 'Not a JSON'}), 400
+    if 'name' not in city_data:
+        return jsonify({'error': 'Missing name'}), 400
+    city_data.pop('state_id', None)  # remove state_id if it exists
+    city_data.pop('id', None)  # remove id if it exists
+    city_data.pop('created_at', None)  # remove created_at if it exists
+    city_data.pop('updated_at', None)  # remove updated_at if it exists
+    for city in state.cities:
+        if city:  # if city exists
+            if city.name == city_data['name']:
+                setattr(city, 'name', city_data['name'])
+                city.save()
+                return jsonify(city.to_dict()), 200
+    city_data['state_id'] = state_id
+    city = City(**city_data)  # create new city
+    city = storage.new(city)  # add to storage
+    storage.save()
+    return jsonify(city.to_dict()), 201
 
 
 @app_views.route('/cities/<city_id>', methods=['GET', 'DELETE', 'PUT'])
