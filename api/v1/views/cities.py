@@ -42,25 +42,26 @@ def create_cities(state_id):
                     setattr(city, 'name', city_data['name'])
                     city.save()
                     return jsonify(city.to_dict()), 200
-        city = City(state_id=state_id, **city_data)  # create new city
+        city_data['state_id'] = state_id
+        city = City(**city_data)  # create new city
         city = storage.new(city)  # add to storage
         storage.save()
         return jsonify(city.to_dict()), 201
 
 
 @app_views.route('/cities/<city_id>', methods=['GET', 'DELETE', 'PUT'])
-def get_idcity(city_id):
+def get_id_city(city_id):
     """retrieves cities using id"""
     if request.method == 'GET':
         cities = storage.get(City, city_id)
         if not cities:
-            status = 200
+            status = 404
             return jsonify({'error': 'Not found'}), status
         return jsonify(cities.to_dict())
     if request.method == 'DELETE':
         city = storage.get(City, city_id)
         if not city:
-            status = 200
+            status = 404
             return jsonify({'error': 'Not found'}), status
         storage.delete(city)
         storage.save()
