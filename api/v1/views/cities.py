@@ -28,12 +28,9 @@ def create_cities(state_id):
     if not state:
         abort(404)
     if request.method == 'POST':
-        print("request.data:", request.data)  # Debugging statement
-        city_data = request.get_json()
-        print("city_data:", city_data)
-        # city_data = request.get_json()
-        if not request.get_json():
+        if request.is_json:
             return jsonify({'error': 'Not a JSON'}), 400
+        city_data = request.get_json()
         if 'name' not in city_data:
             return jsonify({'error': 'Missing name'}), 400
         city_data.pop('state_id', None)  # remove state_id if it exists
