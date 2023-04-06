@@ -30,7 +30,10 @@ def get_or_create_cities_by_state(state_id):
         cities = [city.to_dict() for city in state.cities]  # convert to dict
         return jsonify(cities), 200
     if request.method == 'POST':
-        city_data = request.get_json()
+        try:
+            city_data = request.get_json()
+        except:
+            return jsonify({'error': 'Not a JSON'}), 400
         if not city_data:
             return jsonify({'error': 'Not a JSON'}), 400
         if 'name' not in city_data:
