@@ -70,7 +70,8 @@ class BaseModel:
         if "_sa_instance_state" in new_dict:
             del new_dict["_sa_instance_state"]
         for k, v in new_dict.items():
-            if k == "password" and not include_password and models.storage_t == 'db':
+            if k == "password" and not include_password \
+                    and models.storage_t == 'db':
                 continue
             if k == "password":
                 v = hashlib.md5(v.encode()).hexdigest()
