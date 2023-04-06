@@ -32,6 +32,10 @@ class User(BaseModel, Base):
                 kwargs['password'].encode()).hexdigest()
 
     def to_dict(self, include_password=False):
+        """
+        Returns a dictionary containing all keys/values of the instance,
+        excluding the password if include_password is False.
+        """
         d = super().to_dict(include_password=include_password)
         if not include_password and models.storage_t != 'file':
             d.pop('password', None)
