@@ -173,6 +173,7 @@ class TestFileStorageCount(unittest.TestCase):
         self.storage.delete(self.new_state3)
         self.storage.delete(self.new_place)
         self.storage.save()
+        self.storage.close()
 
     def test_count_all_objects(self):
         """Test count() with no arguments"""
