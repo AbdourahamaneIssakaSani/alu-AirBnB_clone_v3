@@ -20,7 +20,7 @@ else:
     Base = object
 
 
-class BaseModel(Base):
+class BaseModel:
     """The BaseModel class from which future classes will be derived"""
     if models.storage_t == "db":
         id = Column(String(60), primary_key=True)
