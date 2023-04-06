@@ -164,6 +164,7 @@ class TestFileStorageCount(unittest.TestCase):
         self.new_state1.save()
         self.new_state2.save()
         self.new_state3.save()
+        self.new_place.save()
 
     def tearDown(self):
         """Tear down after the tests"""
@@ -178,7 +179,7 @@ class TestFileStorageCount(unittest.TestCase):
     def test_count_all_objects(self):
         """Test count() with no arguments"""
         count = self.storage.count()
-        self.assertEqual(count, 3)
+        self.assertEqual(count, 4)
 
     def test_count_some_objects(self):
         """Test count() with a class argument"""
