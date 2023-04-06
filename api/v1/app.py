@@ -6,10 +6,11 @@ from models import storage
 from api.v1.views import app_views
 from flask import Flask, jsonify
 from flask_cors import CORS
-from flasgger import Swagger
+
+# from flasgger import Swagger
 
 app = Flask(__name__)
-Swagger(app)  # allow swagger
+# Swagger(app)  # allow swagger
 
 app.register_blueprint(app_views)
 CORS(app, resources=r"/api/v1/*", origins="*")

@@ -24,7 +24,7 @@ def get_cities(state_id):
                  strict_slashes=False)
 def create_cities(state_id):
     """create new city"""
-    state = storage.get(State, state_id)
+    state = storage.get("State", state_id)
     if not state:
         abort(404)
     if request.method == 'POST':
