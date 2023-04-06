@@ -9,32 +9,26 @@ from models.state import State
 from models.city import City
 
 
-# @app_views.route('/states/<state_id>/cities', strict_slashes=False)
-# def get_cities(state_id):
-#     """retrieves all cities"""
-#     state = storage.get(State, state_id)
-#     if not state:
-#         abort(404)
-#     cities = [city.to_dict() for city in state.cities]  # convert to dict
-#     return jsonify(cities), 200
+@app_views.route('/states/<state_id>/cities', strict_slashes=False)
+def get_cities(state_id):
+    """retrieves all cities"""
+    state = storage.get(State, state_id)
+    if not state:
+        abort(404)
+    cities = [city.to_dict() for city in state.cities]  # convert to dict
+    return jsonify(cities), 200
 
 
 @app_views.route('/states/<state_id>/cities', methods=['GET', 'POST'],
                  strict_slashes=False)
-def get_or_create_cities_by_state(state_id):
+def create_cities(state_id):
     """create new city"""
     state = storage.get(State, state_id)
     if not state:
         abort(404)
-    if request.method == 'GET':
-        cities = [city.to_dict() for city in state.cities]  # convert to dict
-        return jsonify(cities), 200
     if request.method == 'POST':
-        try:
-            city_data = request.get_json()
-        except:
-            return jsonify({'error': 'Not a JSON'}), 400
-        if not city_data:
+        city_data = request.get_json()
+        if not request.get_json():
             return jsonify({'error': 'Not a JSON'}), 400
         if 'name' not in city_data:
             return jsonify({'error': 'Missing name'}), 400
