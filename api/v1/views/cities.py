@@ -7,6 +7,7 @@ from flask import jsonify, request, abort
 from api.v1.views import app_views
 from models.state import State
 from models.city import City
+import json
 
 
 @app_views.route('/states/<state_id>/cities', strict_slashes=False)
@@ -27,10 +28,11 @@ def create_cities(state_id):
     if not state:
         abort(404)
     if request.method == 'POST':
-        print("request.data:", request.data)
-        city_data = request.get_json()
-        print("city_data:", city_data)
-        city_data = request.get_json()
+        try:
+            city_data = json.loads(request.data)
+        except json.JSONDecodeError:
+            city_data = None
+        # city_data = request.get_json()
         if not request.get_json():
             return jsonify({'error': 'Not a JSON'}), 400
         if 'name' not in city_data:
