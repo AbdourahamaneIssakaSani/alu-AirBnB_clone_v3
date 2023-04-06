@@ -8,7 +8,7 @@ from api.v1.views import app_views
 
 
 @app_views.route('/users', strict_slashes=False)
-def get_allusers():
+def get_all_users():
     """retrieve all users"""
     users = storage.all(User).values()
     return jsonify([user.to_dict() for user in users]), 200
@@ -39,10 +39,10 @@ def get_user(user_id):
     """user actions"""
     if request.method == 'GET':
         """get user"""
-        users = storage.get(User, user_id)
-        if not users:
+        user = storage.get(User, user_id)
+        if not user:
             abort(404)
-        return jsonify(user.to_dict() for user in users)
+        return jsonify(user.to_dict()), 200
 
     if request.method == 'DELETE':
         """delete user"""
@@ -60,7 +60,7 @@ def get_user(user_id):
             abort(404)
         user_data = request.get_json()
         if not user_data:
-            return jsonify({'error': 'Not a JSON'})
+            return jsonify({'error': 'Not a JSON'}), 400
         for key, value in user_data.items():
             if key not in ['id', 'email', 'created_at', 'updated_at']:
                 setattr(user, key, value)
