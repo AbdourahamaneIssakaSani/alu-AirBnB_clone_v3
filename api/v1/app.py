@@ -31,12 +31,12 @@ def teardown(*args, **kwargs):
     """close storage"""
     storage.close()
 
-#allow cross origin for all routes and methods
+#allow cross-origin for all routes and methods
 
 
 @app.after_request  # after request
 def after_request(response):
-    """allow cross origin for all routes and methods"""
+    """allow cross-origin for all routes and methods"""
     response.headers['Access-Control-Allow-Origin'] = '*'
     response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
     response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE'
