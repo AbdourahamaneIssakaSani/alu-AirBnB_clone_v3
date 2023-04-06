@@ -157,34 +157,36 @@ class TestFileStorageCount(unittest.TestCase):
 
         self.storage = FileStorage()
         self.storage.reload()
-        self.new_state1 = State(name="California")
-        self.new_state2 = State(name="New York")
-        self.new_state3 = State(name="Texas")
-        self.new_place = Place(name="Texas")
-        self.new_state1.save()
-        self.new_state2.save()
-        self.new_state3.save()
-        self.new_place.save()
+        self.objects_to_create = {
+            State: [("California",), ("New York",), ("Texas",)],
+            Place: [("Home",), ("Office",)]
+        }
+        self.created_objects = []
+
+        for obj_class, obj_data in self.objects_to_create.items():
+            for obj_args in obj_data:
+                obj = obj_class(*obj_args)
+                obj.save()
+                self.created_objects.append(obj)
 
     def tearDown(self):
         """Tear down after the tests"""
 
-        self.storage.delete(self.new_state1)
-        self.storage.delete(self.new_state2)
-        self.storage.delete(self.new_state3)
-        self.storage.delete(self.new_place)
+        for obj in self.created_objects:
+            self.storage.delete(obj)
+
         self.storage.save()
         self.storage.close()
 
     def test_count_all_objects(self):
         """Test count() with no arguments"""
         count = self.storage.count()
-        self.assertEqual(count, 4)
+        self.assertEqual(count, len(self.created_objects))
 
     def test_count_some_objects(self):
         """Test count() with a class argument"""
         count = self.storage.count(State)
-        self.assertEqual(count, 3)
+        self.assertEqual(count, len(self.objects_to_create[State]))
 
     def test_count_nonexistent_class(self):
         """Test count() with a nonexistent class argument"""
@@ -194,7 +196,7 @@ class TestFileStorageCount(unittest.TestCase):
     def test_count_existing_class(self):
         """Test count() with existing class argument"""
         count = self.storage.count(Place)
-        self.assertEqual(count, 1)
+        self.assertEqual(count, len(self.objects_to_create[Place]))
 
 
 @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') == 'db', "skip if not fs")
