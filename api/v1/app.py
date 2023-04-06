@@ -8,7 +8,6 @@ from flask import Flask, jsonify
 from flask_cors import CORS
 from flasgger import Swagger
 
-
 app = Flask(__name__)
 Swagger(app)  # allow swagger
 
@@ -31,7 +30,8 @@ def teardown(*args, **kwargs):
     """close storage"""
     storage.close()
 
-#allow cross-origin for all routes and methods
+
+# allow cross-origin for all routes and methods
 
 
 @app.after_request  # after request

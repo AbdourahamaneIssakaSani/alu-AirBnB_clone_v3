@@ -33,7 +33,8 @@ def create_user():
     return jsonify(user.to_dict()), 201
 
 
-@app_views.route('users/<user_id>/', methods=['GET', 'DELETE', 'PUT'], strict_slashes=False)
+@app_views.route('users/<user_id>/', methods=['GET', 'DELETE', 'PUT'],
+                 strict_slashes=False)
 def get_user(user_id):
     """user actions"""
     if request.method == 'GET':

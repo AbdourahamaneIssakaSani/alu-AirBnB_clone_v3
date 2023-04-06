@@ -8,6 +8,7 @@ from api.v1.views import app_views
 from models.state import State
 from models.city import City
 
+
 @app_views.route('/states/<state_id>/cities', strict_slashes=False)
 def get_cities(state_id):
     """retrieves all cities"""
@@ -17,7 +18,9 @@ def get_cities(state_id):
     cities = [city.to_dict() for city in state.cities]  # convert to dict
     return jsonify(cities), 200
 
-@app_views.route('/states/<state_id>/cities', methods=['GET', 'POST'], strict_slashes=False)
+
+@app_views.route('/states/<state_id>/cities', methods=['GET', 'POST'],
+                 strict_slashes=False)
 def create_cities(state_id):
     """create new city"""
     state = storage.get(State, state_id)
@@ -43,6 +46,7 @@ def create_cities(state_id):
         city = storage.new(city)  # add to storage
         storage.save()
         return jsonify(city.to_dict()), 201
+
 
 @app_views.route('/cities/<city_id>', methods=['GET', 'DELETE', 'PUT'])
 def get_idcity(city_id):

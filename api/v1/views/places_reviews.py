@@ -9,6 +9,7 @@ from models.review import Review
 from api.v1.views import app_views
 from models.user import User
 
+
 @app_views.route('/places/<place_id>/reviews', strict_slashes=False)
 def get_allreviews(place_id):
     '''get reviews'''
@@ -18,7 +19,9 @@ def get_allreviews(place_id):
     reviews = [review.to_dict() for review in place.reviews]
     return jsonify(reviews), 200
 
-@app_views.route('/places/<place_id>/reviews', methods=['GET', 'POST'], strict_slashes=False)
+
+@app_views.route('/places/<place_id>/reviews', methods=['GET', 'POST'],
+                 strict_slashes=False)
 def create_review(place_id):
     '''create a review'''
     place = storage.get(Place, place_id)
@@ -39,7 +42,9 @@ def create_review(place_id):
     review.save()
     return jsonify(review.to_dict()), 201
 
-@app_views.route('/reviews/<review_id>', methods=['GET', 'DELETE', 'PUT'], strict_slashes=False)
+
+@app_views.route('/reviews/<review_id>', methods=['GET', 'DELETE', 'PUT'],
+                 strict_slashes=False)
 def reviews_actions(review_id):
     '''all review actions'''
     if request.method == 'GET':
@@ -64,7 +69,8 @@ def reviews_actions(review_id):
         if not review_data:
             return jsonify({'error': 'Not a JSON'}), 400
         for key, value in review_data.items():
-            if key not in ['id', 'user_id', 'place_id', 'created_at', 'updated_at']:
+            if key not in ['id', 'user_id', 'place_id', 'created_at',
+                           'updated_at']:
                 setattr(review, key, value)
         review.save()
         return jsonify(review.to_dict()), 200

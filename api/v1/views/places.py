@@ -19,7 +19,8 @@ def get_allplaces(city_id):
     return jsonify(places), 200
 
 
-@app_views.route('/cities/<city_id>/places', methods=['GET', 'POST'], strict_slashes=False)
+@app_views.route('/cities/<city_id>/places', methods=['GET', 'POST'],
+                 strict_slashes=False)
 def create_place(city_id):
     '''create a place'''
     city = storage.get(City, city_id)
@@ -41,7 +42,8 @@ def create_place(city_id):
     return jsonify(place.to_dict()), 201
 
 
-@app_views.route('/places/<place_id>', methods=['GET', 'DELETE', 'PUT'], strict_slashes=False)
+@app_views.route('/places/<place_id>', methods=['GET', 'DELETE', 'PUT'],
+                 strict_slashes=False)
 def places_actions(place_id):
     '''all place actions'''
     if request.method == 'GET':
@@ -66,7 +68,8 @@ def places_actions(place_id):
         if not place_data:
             return jsonify({'error': 'Not a JSON'})
         for key, value in place_data.items():
-            if key not in ['id', 'user_id', 'city_id', 'created_at', 'updated_at']:
+            if key not in ['id', 'user_id', 'city_id', 'created_at',
+                           'updated_at']:
                 setattr(place, key, value)
         place.save()
         return jsonify(place.to_dict()), 200

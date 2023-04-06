@@ -21,7 +21,9 @@ if storage_type == 'db':
         amenities = [amenity.to_dict() for amenity in place.amenities]
         return jsonify(amenities), 200
 
-    @app_views.route('/places/<place_id>/amenities/<amenity_id>', methods=['DELETE'], strict_slashes=False)
+
+    @app_views.route('/places/<place_id>/amenities/<amenity_id>',
+                     methods=['DELETE'], strict_slashes=False)
     def delete_amenity(place_id, amenity_id):
         '''delete an amenity'''
         place = storage.get(Place, place_id)
@@ -36,7 +38,9 @@ if storage_type == 'db':
         storage.save()
         return jsonify({}), 200
 
-    @app_views.route('/places/<place_id>/amenities/<amenity_id>', methods=['POST'], strict_slashes=False)
+
+    @app_views.route('/places/<place_id>/amenities/<amenity_id>',
+                     methods=['POST'], strict_slashes=False)
     def create_amenity(place_id, amenity_id):
         '''create an amenity'''
         place = storage.get(Place, place_id)
@@ -61,7 +65,9 @@ if storage_type == 'fs':
         amenities = [amenity.to_dict() for amenity in place.amenities]
         return jsonify(amenities), 200
 
-    @app_views.route('/places/<place_id>/amenities/<amenity_id>', methods=['DELETE'], strict_slashes=False)
+
+    @app_views.route('/places/<place_id>/amenities/<amenity_id>',
+                     methods=['DELETE'], strict_slashes=False)
     def delete_amenity(place_id, amenity_id):
         '''delete an amenity'''
         place = storage.get(Place, place_id)
@@ -76,7 +82,9 @@ if storage_type == 'fs':
         storage.save()
         return jsonify({}), 200
 
-    @app_views.route('/places/<place_id>/amenities/<amenity_id>', methods=['POST'], strict_slashes=False)
+
+    @app_views.route('/places/<place_id>/amenities/<amenity_id>',
+                     methods=['POST'], strict_slashes=False)
     def create_amenity(place_id, amenity_id):
         '''create an amenity'''
         place = storage.get(Place, place_id)
