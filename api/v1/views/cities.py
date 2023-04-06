@@ -28,10 +28,9 @@ def create_cities(state_id):
     if not state:
         abort(404)
     if request.method == 'POST':
-        try:
-            city_data = json.loads(request.data)
-        except json.JSONDecodeError:
-            city_data = None
+        print("request.data:", request.data)  # Debugging statement
+        city_data = request.get_json()
+        print("city_data:", city_data)
         # city_data = request.get_json()
         if not request.get_json():
             return jsonify({'error': 'Not a JSON'}), 400
