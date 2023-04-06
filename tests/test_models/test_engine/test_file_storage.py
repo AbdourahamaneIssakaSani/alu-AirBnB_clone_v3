@@ -157,6 +157,12 @@ class TestFileStorageCount(unittest.TestCase):
 
         self.storage = FileStorage()
         self.storage.reload()
+
+        # Clear the storage
+        for key in list(self.storage.all().keys()):
+            del self.storage._FileStorage__objects[key]
+        self.storage.save()
+
         self.objects_to_create = {
             State: [("California",), ("New York",), ("Texas",)],
             Place: [("Home",), ("Office",)]
