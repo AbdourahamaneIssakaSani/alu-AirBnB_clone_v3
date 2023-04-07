@@ -174,37 +174,31 @@ class TestDBStorageCreateAndUpdate(unittest.TestCase):
         """Set up for the tests"""
         self.storage = DBStorage()
         self.storage.reload()
+        self.new_state = State(name="Test State")
+        self.storage.new(self.new_state)
+        self.storage.save()
 
     def tearDown(self):
         """Tear down after the tests"""
+        self.storage.delete(self.new_state)
+        self.storage.save()
         self.storage.close()
 
     def test_create_state(self):
         """Test creating a new State object and saving it to the database"""
-        new_state = State(name="Test State")
-        self.storage.new(new_state)
-        self.storage.save()
-        retrieved_state = self.storage.get(State, new_state.id)
+        retrieved_state = self.storage.get(State, self.new_state.id)
         self.assertIsNotNone(retrieved_state)
         self.assertEqual(retrieved_state.name, "Test State")
-        self.storage.delete(new_state)
-        self.storage.save()
 
     def test_update_state(self):
         """Test updating an existing State object and saving the
         changes to the database"""
-        new_state = State(name="Test State")
-        self.storage.new(new_state)
+        self.new_state.name = "Updated Test State"
         self.storage.save()
 
-        new_state.name = "Updated Test State"
-        self.storage.save()
-
-        retrieved_state = self.storage.get(State, new_state.id)
+        retrieved_state = self.storage.get(State, self.new_state.id)
         self.assertIsNotNone(retrieved_state)
         self.assertEqual(retrieved_state.name, "Updated Test State")
-        self.storage.delete(new_state)
-        self.storage.save()
 
     def test_delete_nonexistent_state(self):
         """Test attempting to delete a State object that doesn't exist"""
@@ -236,23 +230,76 @@ class TestDBStorageCreateAndUpdate(unittest.TestCase):
 
     def test_object_relationships(self):
         """Test the proper handling of object relationships"""
-        new_state = State(name="Test State")
-        self.storage.new(new_state)
-        self.storage.save()
-
-        new_city = City(name="Test City", state_id=new_state.id)
+        new_city = City(name="Test City", state_id=self.new_state.id)
         self.storage.new(new_city)
         self.storage.save()
 
         retrieved_city = self.storage.get(City, new_city.id)
         self.assertIsNotNone(retrieved_city)
-        self.assertEqual(retrieved_city.state_id, new_state.id)
+        self.assertEqual(retrieved_city.state_id, self.new_state.id)
 
-        retrieved_state = self.storage.get(State, new_state.id)
+        retrieved_state = self.storage.get(State, self.new_state.id)
         self.assertIsNotNone(retrieved_state)
 
         self.assertIn(new_city, retrieved_state.cities)
 
         self.storage.delete(new_city)
-        self.storage.delete(new_state)
         self.storage.save()
+
+
+@unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') != 'db', "skip if not fs")
+class TestDBStorageHa(unittest.TestCase):
+    """DB Storage test"""
+
+    def setUp(self):
+        """ Set up test environment """
+        self.storage = models.storage
+
+    def tearDown(self):
+        """ Remove storage file at end of tests """
+        del self.storage
+
+    def test_user(self):
+        """ Tests user """
+        user = User(name="Abissa")
+        user.save()
+        self.assertTrue(user.id in self.storage.all())
+        self.assertEqual(user.name, "Abissa")
+
+    def test_city(self):
+        """ test user """
+        city = City(name="Maradi")
+        state = State()
+        city.state_id = state.id
+        city.save()
+        self.assertTrue(city.id in self.storage.all())
+        self.assertEqual(city.name, "Maradi")
+
+    def test_state(self):
+        """ test state"""
+        state = State(name="California")
+        state.save()
+        self.assertTrue(state.id in self.storage.all())
+        self.assertEqual(state.name, "California")
+
+    def test_place(self):
+        """ test place """
+        place = Place(name="Palace", number_rooms=4)
+        place.save()
+        self.assertTrue(place.id in self.storage.all())
+        self.assertEqual(place.number_rooms, 4)
+        self.assertEqual(place.name, "Palace")
+
+    def test_amenity(self):
+        """ test amenity """
+        amenity = Amenity(name="Startlink")
+        amenity.save()
+        self.assertTrue(amenity.id in self.storage.all())
+        self.assertTrue(amenity.name, "Startlink")
+
+    def test_review(self):
+        """ test review """
+        review = Review(text="no comment")
+        review.save()
+        self.assertTrue(review.id in self.storage.all())
+        self.assertEqual(review.text, "no comment")
