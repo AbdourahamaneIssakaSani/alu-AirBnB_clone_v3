@@ -322,3 +322,74 @@ class TestDBStorageCreateAndUpdate(unittest.TestCase):
 
         self.storage.delete(new_city)
         self.storage.save()
+
+
+@unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') != 'db', "skip if not db")
+class TestDBStorageGetUser(unittest.TestCase):
+    """Tests get method of the DBStorage class for the User class"""
+
+    def setUp(self):
+        """Set up for the tests"""
+
+        self.storage = DBStorage()
+        self.storage.reload()
+        self.new_user1 = User(email="user1@example.com", password="password1")
+        self.new_user2 = User(email="user2@example.com", password="password2")
+        self.new_user1.save()
+        self.new_user2.save()
+
+    def tearDown(self):
+        """Tear down after the tests"""
+
+        self.storage.delete(self.new_user1)
+        self.storage.delete(self.new_user2)
+        self.storage.save()
+        self.storage.close()
+
+    def test_get_existing_user(self):
+        """Test get() with an existing User object"""
+        obj = self.storage.get(User, self.new_user1.id)
+        self.assertEqual(obj.id, self.new_user1.id)
+
+    def test_get_nonexistent_user(self):
+        """Test get() with a nonexistent User object"""
+        obj = self.storage.get(User, "nonexistent")
+        self.assertIsNone(obj)
+
+
+@unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') != 'db', "skip if not db")
+class TestDBStorageCountUser(unittest.TestCase):
+    """Tests the count() method of the DBStorage class for the User class"""
+
+    def setUp(self):
+        """Set up for the tests"""
+
+        self.storage = DBStorage()
+        self.storage.reload()
+        self.new_user1 = User(email="user1@example.com", password="password1")
+        self.new_user2 = User(email="user2@example.com", password="password2")
+        self.new_user1.save()
+        self.new_user2.save()
+
+    def tearDown(self):
+        """Tear down after the tests"""
+
+        self.storage.delete(self.new_user1)
+        self.storage.delete(self.new_user2)
+        self.storage.save()
+        self.storage.close()
+
+    def test_count_all_user_objects(self):
+        """Test count() with no arguments for User class"""
+        count = self.storage.count()
+        self.assertEqual(count, 2)
+
+    def test_count_some_user_objects(self):
+        """Test count() with a class argument for User class"""
+        count = self.storage.count(User)
+        self.assertEqual(count, 2)
+
+    def test_count_nonexistent_user_class(self):
+        """Test count() with a nonexistent class argument for User class"""
+        count = self.storage.count(Amenity)
+        self.assertEqual(count, 0)
