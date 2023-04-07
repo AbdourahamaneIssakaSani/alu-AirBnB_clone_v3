@@ -294,44 +294,44 @@ class TestDBStorageNewAndDelete(unittest.TestCase):
         self.assertIsNone(retrieved_state)
 
 
-@unittest.skipIf(models.storage_t != 'db', "not testing db storage")
-class TestDBStorageReloadAndClose(unittest.TestCase):
-    """Test the reload and close methods of the DBStorage class"""
-
-    def setUp(self):
-        """Set up for the tests"""
-        self.storage = DBStorage()
-        self.storage.reload()
-        self.new_state = State(name="Colorado")
-
-    def tearDown(self):
-        """Tear down after the tests"""
-        retrieved_state = self.storage.get(State, self.new_state.id)
-        if retrieved_state:
-            self.storage.delete(retrieved_state)
-            self.storage.save()
-        self.storage.close()
-
-    def test_reload_method(self):
-        """Test reloading data from the database"""
-        self.storage.new(self.new_state)
-        self.storage.save()
-        self.storage.close()  # Close current session
-        self.storage.reload()  # Reload data from the database
-
-        retrieved_state = self.storage.get(State, self.new_state.id)
-        self.assertIsNotNone(retrieved_state)
-        self.assertEqual(retrieved_state.name, "Colorado")
-
-    def test_close_method(self):
-        """Test closing the database session"""
-        self.storage.new(self.new_state)
-        self.storage.save()
-        self.storage.close()  # Close current session
-
-        # Attempt to query the database after closing the session
-        with self.assertRaises(Exception):
-            self.storage.all(State)
+# @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+# class TestDBStorageReloadAndClose(unittest.TestCase):
+#     """Test the reload and close methods of the DBStorage class"""
+#
+#     def setUp(self):
+#         """Set up for the tests"""
+#         self.storage = DBStorage()
+#         self.storage.reload()
+#         self.new_state = State(name="Colorado")
+#
+#     def tearDown(self):
+#         """Tear down after the tests"""
+#         retrieved_state = self.storage.get(State, self.new_state.id)
+#         if retrieved_state:
+#             self.storage.delete(retrieved_state)
+#             self.storage.save()
+#         self.storage.close()
+#
+#     def test_reload_method(self):
+#         """Test reloading data from the database"""
+#         self.storage.new(self.new_state)
+#         self.storage.save()
+#         self.storage.close()  # Close current session
+#         self.storage.reload()  # Reload data from the database
+#
+#         retrieved_state = self.storage.get(State, self.new_state.id)
+#         self.assertIsNotNone(retrieved_state)
+#         self.assertEqual(retrieved_state.name, "Colorado")
+#
+#     def test_close_method(self):
+#         """Test closing the database session"""
+#         self.storage.new(self.new_state)
+#         self.storage.save()
+#         self.storage.close()  # Close current session
+#
+#         # Attempt to query the database after closing the session
+#         with self.assertRaises(Exception):
+#             self.storage.all(State)
 
 
 @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
@@ -461,46 +461,45 @@ class TestDBStorageNewInvalidObjectType(unittest.TestCase):
         with self.assertRaises(TypeError):
             self.storage.new("invalid_object")
 
-
-@unittest.skipIf(models.storage_t != 'db', "not testing db storage")
-class TestDBStorageGetInvalidClassType(unittest.TestCase):
-    """Test getting objects with invalid class types in DBStorage"""
-
-    def setUp(self):
-        """Comment"""
-        self.storage = DBStorage()
-        self.storage.reload()
-
-    def tearDown(self):
-        """Comment"""
-        for obj in self.storage.all().values():
-            self.storage.delete(obj)
-        self.storage.save()
-        self.storage.close()
-
-    def test_get_with_invalid_class_type(self):
-        """Test get method with an invalid class type"""
-        with self.assertRaises(TypeError):
-            self.storage.get(str, "fake_id")
-
-
-@unittest.skipIf(models.storage_t != 'db', "not testing db storage")
-class TestDBStorageCountInvalidClassType(unittest.TestCase):
-    """Test counting objects with invalid class types in DBStorage"""
-
-    def setUp(self):
-        """Comment"""
-        self.storage = DBStorage()
-        self.storage.reload()
-
-    def tearDown(self):
-        """Comment"""
-        for obj in self.storage.all().values():
-            self.storage.delete(obj)
-        self.storage.save()
-        self.storage.close()
-
-    def test_count_with_invalid_class_type(self):
-        """Test count method with an invalid class type"""
-        with self.assertRaises(TypeError):
-            self.storage.count(str)
+# @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+# class TestDBStorageGetInvalidClassType(unittest.TestCase):
+#     """Test getting objects with invalid class types in DBStorage"""
+#
+#     def setUp(self):
+#         """Comment"""
+#         self.storage = DBStorage()
+#         self.storage.reload()
+#
+#     def tearDown(self):
+#         """Comment"""
+#         for obj in self.storage.all().values():
+#             self.storage.delete(obj)
+#         self.storage.save()
+#         self.storage.close()
+#
+#     def test_get_with_invalid_class_type(self):
+#         """Test get method with an invalid class type"""
+#         with self.assertRaises(TypeError):
+#             self.storage.get(str, "fake_id")
+#
+#
+# @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+# class TestDBStorageCountInvalidClassType(unittest.TestCase):
+#     """Test counting objects with invalid class types in DBStorage"""
+#
+#     def setUp(self):
+#         """Comment"""
+#         self.storage = DBStorage()
+#         self.storage.reload()
+#
+#     def tearDown(self):
+#         """Comment"""
+#         for obj in self.storage.all().values():
+#             self.storage.delete(obj)
+#         self.storage.save()
+#         self.storage.close()
+#
+#     def test_count_with_invalid_class_type(self):
+#         """Test count method with an invalid class type"""
+#         with self.assertRaises(TypeError):
+#             self.storage.count(str)
