@@ -504,198 +504,8 @@ class TestDBStorageCountInvalidClassType(unittest.TestCase):
         """Test count method with an invalid class type"""
         with self.assertRaises(TypeError):
             self.storage.count(str)
-@unittest.skipIf(models.storage_t != 'db', "not testing db storage")
-class TestDBStorageNewInvalidObjectType(unittest.TestCase):
-    """Test creating objects with invalid types in DBStorage"""
-
-    def setUp(self):
-        """Comment"""
-        self.storage = DBStorage()
-        self.storage.reload()
-
-    def tearDown(self):
-        """Comment"""
-        for obj in self.storage.all().values():
-            self.storage.delete(obj)
-        self.storage.save()
-        self.storage.close()
-
-    def test_new_with_invalid_object_type(self):
-        """Test new method with an invalid object type"""
-        with self.assertRaises(TypeError):
-            self.storage.new("invalid_object")
 
 
-@unittest.skipIf(models.storage_t != 'db', "not testing db storage")
-class TestDBStorageGetInvalidClassType(unittest.TestCase):
-    """Test getting objects with invalid class types in DBStorage"""
-
-    def setUp(self):
-        """Comment"""
-        self.storage = DBStorage()
-        self.storage.reload()
-
-    def tearDown(self):
-        """Comment"""
-        for obj in self.storage.all().values():
-            self.storage.delete(obj)
-        self.storage.save()
-        self.storage.close()
-
-    def test_get_with_invalid_class_type(self):
-        """Test get method with an invalid class type"""
-        with self.assertRaises(TypeError):
-            self.storage.get(str, "fake_id")
-
-
-@unittest.skipIf(models.storage_t != 'db', "not testing db storage")
-class TestDBStorageCountInvalidClassType(unittest.TestCase):
-    """Test counting objects with invalid class types in DBStorage"""
-
-    def setUp(self):
-        """Comment"""
-        self.storage = DBStorage()
-        self.storage.reload()
-
-    def tearDown(self):
-        """Comment"""
-        for obj in self.storage.all().values():
-            self.storage.delete(obj)
-        self.storage.save()
-        self.storage.close()
-
-    def test_count_with_invalid_class_type(self):
-        """Test count method with an invalid class type"""
-        with self.assertRaises(TypeError):
-            self.storage.count(str)
-@unittest.skipIf(models.storage_t != 'db', "not testing db storage")
-class TestDBStorageNewInvalidObjectType(unittest.TestCase):
-    """Test creating objects with invalid types in DBStorage"""
-
-    def setUp(self):
-        """Comment"""
-        self.storage = DBStorage()
-        self.storage.reload()
-
-    def tearDown(self):
-        """Comment"""
-        for obj in self.storage.all().values():
-            self.storage.delete(obj)
-        self.storage.save()
-        self.storage.close()
-
-    def test_new_with_invalid_object_type(self):
-        """Test new method with an invalid object type"""
-        with self.assertRaises(TypeError):
-            self.storage.new("invalid_object")
-
-
-@unittest.skipIf(models.storage_t != 'db', "not testing db storage")
-class TestDBStorageGetInvalidClassType(unittest.TestCase):
-    """Test getting objects with invalid class types in DBStorage"""
-
-    def setUp(self):
-        """Comment"""
-        self.storage = DBStorage()
-        self.storage.reload()
-
-    def tearDown(self):
-        """Comment"""
-        for obj in self.storage.all().values():
-            self.storage.delete(obj)
-        self.storage.save()
-        self.storage.close()
-
-    def test_get_with_invalid_class_type(self):
-        """Test get method with an invalid class type"""
-        with self.assertRaises(TypeError):
-            self.storage.get(str, "fake_id")
-
-
-@unittest.skipIf(models.storage_t != 'db', "not testing db storage")
-class TestDBStorageCountInvalidClassType(unittest.TestCase):
-    """Test counting objects with invalid class types in DBStorage"""
-
-    def setUp(self):
-        """Comment"""
-        self.storage = DBStorage()
-        self.storage.reload()
-
-    def tearDown(self):
-        """Comment"""
-        for obj in self.storage.all().values():
-            self.storage.delete(obj)
-        self.storage.save()
-        self.storage.close()
-
-    def test_count_with_invalid_class_type(self):
-        """Test count method with an invalid class type"""
-        with self.assertRaises(TypeError):
-            self.storage.count(str)
-@unittest.skipIf(models.storage_t != 'db', "not testing db storage")
-class TestDBStorageNewInvalidObjectType(unittest.TestCase):
-    """Test creating objects with invalid types in DBStorage"""
-
-    def setUp(self):
-        """Comment"""
-        self.storage = DBStorage()
-        self.storage.reload()
-
-    def tearDown(self):
-        """Comment"""
-        for obj in self.storage.all().values():
-            self.storage.delete(obj)
-        self.storage.save()
-        self.storage.close()
-
-    def test_new_with_invalid_object_type(self):
-        """Test new method with an invalid object type"""
-        with self.assertRaises(TypeError):
-            self.storage.new("invalid_object")
-
-
-@unittest.skipIf(models.storage_t != 'db', "not testing db storage")
-class TestDBStorageGetInvalidClassType(unittest.TestCase):
-    """Test getting objects with invalid class types in DBStorage"""
-
-    def setUp(self):
-        """Comment"""
-        self.storage = DBStorage()
-        self.storage.reload()
-
-    def tearDown(self):
-        """Comment"""
-        for obj in self.storage.all().values():
-            self.storage.delete(obj)
-        self.storage.save()
-        self.storage.close()
-
-    def test_get_with_invalid_class_type(self):
-        """Test get method with an invalid class type"""
-        with self.assertRaises(TypeError):
-            self.storage.get(str, "fake_id")
-
-
-@unittest.skipIf(models.storage_t != 'db', "not testing db storage")
-class TestDBStorageCountInvalidClassType(unittest.TestCase):
-    """Test counting objects with invalid class types in DBStorage"""
-
-    def setUp(self):
-        """Comment"""
-        self.storage = DBStorage()
-        self.storage.reload()
-
-    def tearDown(self):
-        """Comment"""
-        for obj in self.storage.all().values():
-            self.storage.delete(obj)
-        self.storage.save()
-        self.storage.close()
-
-    def test_count_with_invalid_class_type(self):
-        """Test count method with an invalid class type"""
-        with self.assertRaises(TypeError):
-            self.storage.count(str)
 @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
 class TestDBStorageNewInvalidObjectType(unittest.TestCase):
     """Test creating objects with invalid types in DBStorage"""
@@ -823,6 +633,204 @@ class TestDBStorageCountInvalidClassType(unittest.TestCase):
         self.storage.close()
 
     def test_count_with_invalid_class_type(self):
+        """Test count method with an invalid class type"""
+        with self.assertRaises(TypeError):
+            self.storage.count(str)
+
+
+@unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+class TestDBStorageNewInvalidObjectType(unittest.TestCase):
+    """Test creating objects with invalid types in DBStorage"""
+
+    def setUp(self):
+        """Comment"""
+        self.storage = DBStorage()
+        self.storage.reload()
+
+    def tearDown(self):
+        """Comment"""
+        for obj in self.storage.all().values():
+            self.storage.delete(obj)
+        self.storage.save()
+        self.storage.close()
+
+    def test_new_with_invalid_object_type(self):
+        """Test new method with an invalid object type"""
+        with self.assertRaises(TypeError):
+            self.storage.new("invalid_object")
+
+
+@unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+class TestDBStorageGetInvalidClassType(unittest.TestCase):
+    """Test getting objects with invalid class types in DBStorage"""
+
+    def setUp(self):
+        """Comment"""
+        self.storage = DBStorage()
+        self.storage.reload()
+
+    def tearDown(self):
+        """Comment"""
+        for obj in self.storage.all().values():
+            self.storage.delete(obj)
+        self.storage.save()
+        self.storage.close()
+
+    def test_get_with_invalid_class_type(self):
+        """Test get method with an invalid class type"""
+        with self.assertRaises(TypeError):
+            self.storage.get(str, "fake_id")
+
+
+@unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+class TestDBStorageCountInvalidClassType(unittest.TestCase):
+    """Test counting objects with invalid class types in DBStorage"""
+
+    def setUp(self):
+        """Comment"""
+        self.storage = DBStorage()
+        self.storage.reload()
+
+    def tearDown(self):
+        """Comment"""
+        for obj in self.storage.all().values():
+            self.storage.delete(obj)
+        self.storage.save()
+        self.storage.close()
+
+    def test_count_with_invalid_class_type(self):
+        """Test count method with an invalid class type"""
+        with self.assertRaises(TypeError):
+            self.storage.count(str)
+
+
+@unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+class TestDBStorageNewInvalidObjectType(unittest.TestCase):
+    """Test creating objects with invalid types in DBStorage"""
+
+    def setUp(self):
+        """Comment"""
+        self.storage = DBStorage()
+        self.storage.reload()
+
+    def tearDown(self):
+        """Comment"""
+        for obj in self.storage.all().values():
+            self.storage.delete(obj)
+        self.storage.save()
+        self.storage.close()
+
+    def test_new_with_invalid_object_type(self):
+        """Test new method with an invalid object type"""
+        with self.assertRaises(TypeError):
+            self.storage.new("invalid_object")
+
+
+@unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+class TestDBStorageGetInvalidClassType(unittest.TestCase):
+    """Test getting objects with invalid class types in DBStorage"""
+
+    def setUp(self):
+        """Comment"""
+        self.storage = DBStorage()
+        self.storage.reload()
+
+    def tearDown(self):
+        """Comment"""
+        for obj in self.storage.all().values():
+            self.storage.delete(obj)
+        self.storage.save()
+        self.storage.close()
+
+    def test_get_with_invalid_class_type(self):
+        """Test get method with an invalid class type"""
+        with self.assertRaises(TypeError):
+            self.storage.get(str, "fake_id")
+
+
+@unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+class TestDBStorageCountInvalidClassType(unittest.TestCase):
+    """Test counting objects with invalid class types in DBStorage"""
+
+    def setUp(self):
+        """Comment"""
+        self.storage = DBStorage()
+        self.storage.reload()
+
+    def tearDown(self):
+        """Comment"""
+        for obj in self.storage.all().values():
+            self.storage.delete(obj)
+        self.storage.save()
+        self.storage.close()
+
+    def test_count_with_invalid_class_type(self):
+        """Test count method with an invalid class type"""
+        with self.assertRaises(TypeError):
+            self.storage.count(str)
+
+
+@unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+class TestDBStorageNewInvalidObjectType(unittest.TestCase):
+    """Test creating objects with invalid types in DBStorage"""
+
+    def setUp(self):
+        """Comment"""
+        self.storage = DBStorage()
+        self.storage.reload()
+
+    def tearDown(self):
+        """Comment"""
+        for obj in self.storage.all().values():
+            self.storage.delete(obj)
+        self.storage.save()
+        self.storage.close()
+
+    def test_new_with_invalid_object_type(self):
+        """Test new method with an invalid object type"""
+        with self.assertRaises(TypeError):
+            self.storage.new("invalid_object")
+
+
+@unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+class TestDBStorageGetInvalidClassType(unittest.TestCase):
+    """Test getting objects with invalid class types in DBStorage"""
+
+    def setUp(self):
+        """Comment"""
+        self.storage = DBStorage()
+        self.storage.reload()
+
+    def tearDown(self):
+        """Comment"""
+        for obj in self.storage.all().values():
+            self.storage.delete(obj)
+        self.storage.save()
+        self.storage.close()
+
+    def test_get_with_invalidd_class_type(self):
+        """Test get method with an invalid class type"""
+        with self.assertRaises(TypeError):
+            self.storage.get(str, "fake_id")
+
+
+@unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+class TestDBStorageCountInvalidClassType(unittest.TestCase):
+    """Test counting objects with invalid class types in DBStorage"""
+
+    def setUp(self):
+        """Comment"""
+        self.storage = DBStorage()
+        self.storage.reload()
+
+    def tearDown(self):
+        """Comment"""
+        for obj in self.storage.all().values():
+            self.storage.delete(obj)
+        self.storage.save()
+        self.storage.close()
+
+    def test_count_dwith_invalid_class_type(self):
         """Test count method with an invalid class type"""
         with self.assertRaises(TypeError):
             self.storage.count(str)
