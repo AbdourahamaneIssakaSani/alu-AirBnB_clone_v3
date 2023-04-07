@@ -418,6 +418,7 @@ class TestDBStorageInvalidClassType(unittest.TestCase):
             self.storage.get(str, "fake_id")
 
 
+@unittest.skipIf(models.storage_t != 'db', "not testing db storage")
 class TestDBStorageDeleteInvalidObjectType(unittest.TestCase):
     """Test deleting objects with invalid types from DBStorage"""
 
@@ -439,6 +440,7 @@ class TestDBStorageDeleteInvalidObjectType(unittest.TestCase):
             self.storage.delete("invalid_object")
 
 
+@unittest.skipIf(models.storage_t != 'db', "not testing db storage")
 class TestDBStorageNewInvalidObjectType(unittest.TestCase):
     """Test creating objects with invalid types in DBStorage"""
 
@@ -460,6 +462,7 @@ class TestDBStorageNewInvalidObjectType(unittest.TestCase):
             self.storage.new("invalid_object")
 
 
+@unittest.skipIf(models.storage_t != 'db', "not testing db storage")
 class TestDBStorageGetInvalidClassType(unittest.TestCase):
     """Test getting objects with invalid class types in DBStorage"""
 
@@ -481,6 +484,7 @@ class TestDBStorageGetInvalidClassType(unittest.TestCase):
             self.storage.get(str, "fake_id")
 
 
+@unittest.skipIf(models.storage_t != 'db', "not testing db storage")
 class TestDBStorageCountInvalidClassType(unittest.TestCase):
     """Test counting objects with invalid class types in DBStorage"""
 
